@@ -1,0 +1,56 @@
+# Adapted from https://zensical.org/docs/publish-your-site/#with-github-actions
+name: Create Zensical website
+
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/build_game.yaml
+      - .github/workflows/create_zensical_website.yaml
+      - '*.cpp'
+      - '*.h'
+      - '*.png'
+      - '*.pro'
+      - '*.qrc'
+      - '*.ui'
+      - 'docs/**'
+      - zensical.toml
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build_game:
+    uses: ./.github/workflows/build_game.yaml
+
+  create_zensical_website:
+    needs: build_game
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: sim_equation_wasm
+          path: docs/game
+      - uses: actions/download-artifact@v4
+        with:
+          name: sim_equation_windows
+          path: sim_equation_windows
+      - run: zip -r docs/sim_equation_windows.zip sim_equation_windows
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: pip install zensical
+      - run: zensical build --clean --strict
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4

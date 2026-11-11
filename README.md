@@ -1,15 +1,27 @@
 # Sim Equation
 
-Branch|[![Travis CI logo](pics/TravisCI.png)](https://travis-ci.org)
----|---
-`master`|[![Build Status](https://travis-ci.org/richelbilderbeek/sim_equation.svg?branch=master)](https://travis-ci.org/richelbilderbeek/sim_equation)
+[Go to the nicely rendered website](https://richelbilderbeek.github.io/sim_equation/).
 
-Equations are beautiful. Let's simulate the joy equations bring!
+## Build
 
-![](sim_equation.png)
+Sim Equation needs Qt 6:
 
- * [Download the Windows executable](http://richelbilderbeek.nl/sim_equation.zip)
+```bash
+qmake sim_equation.pro
+make
+```
 
-## Links
+To build the WebAssembly version, do the same with the `qmake` of
+Qt for WebAssembly and the matching version of Emscripten.
+[build_game.yaml](.github/workflows/build_game.yaml)
+shows which versions are used and builds the Linux, Windows and WebAssembly versions.
 
- * [Beer Sim](https://github.com/richelbilderbeek/beer_sim): similar equally important simulation
+## Files used by continuous integration scripts
+
+Filename                                  |Descriptions
+------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------
+[mlc_config.json](mlc_config.json)        |Configuration of the link checker, use `markdown-link-check --config mlc_config.json --quiet docs/**/*.md` to do link checking locally
+[.spellcheck.yml](.spellcheck.yml)        |Configuration of the spell checker, use `pyspelling -c .spellcheck.yml` to do spellcheck locally
+[.wordlist.txt](.wordlist.txt)            |Whitelisted words for the spell checker, use `pyspelling -c .spellcheck.yml` to do spellcheck locally
+[.markdownlint.jsonc](.markdownlint.jsonc)|Configuration of the markdown linter, use `markdownlint "**/*.md"` to do markdown linting locally. The name of this file is a default name.
+[.markdownlintignore](.markdownlintignore)|Files ignored by the markdown linter, use `markdownlint "**/*.md"` to do markdown linting locally. The name of this file is a default name.

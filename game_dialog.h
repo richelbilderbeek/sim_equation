@@ -15,7 +15,7 @@ public:
 
   enum class beer_state { foam, no_foam };
 
-  explicit game_dialog(QWidget *parent = 0);
+  explicit game_dialog(QWidget *parent = nullptr);
   ~game_dialog();
 
 private:
@@ -23,9 +23,9 @@ private:
 
   beer_state m_beer_state = beer_state::foam;
 
-  void mousePressEvent(QMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event) override;
 
-  void timerEvent(QTimerEvent *event);
+  void timerEvent(QTimerEvent *event) override;
 };
 
 #endif // GAME_DIALOG_H

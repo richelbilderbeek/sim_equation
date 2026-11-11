@@ -1,10 +1,17 @@
 *.pro.user
-ui_*.h
-Makefile
-Makefile.Debug
-Makefile.Release
-release/
-sim_equation.exe
-*_plugin_import.cpp
 .qmake.stash
-*.zip
+Makefile
+Makefile.*
+/sim_equation
+sim_equation.exe
+sim_equation_plugin_import.cpp
+moc_*
+qrc_*
+*.o
+release/
+ui_*.h
+
+# Generated when building the website
+/docs/sim_equation_windows.zip
+/docs/game/
+/site/

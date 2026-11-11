@@ -1,6 +1,10 @@
 #include "game_dialog.h"
 #include "ui_game_dialog.h"
 
+#include <QPixmap>
+
+#include <cstdlib>
+
 game_dialog::game_dialog(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::game_dialog)
